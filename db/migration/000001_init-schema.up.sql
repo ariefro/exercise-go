@@ -4,8 +4,7 @@ CREATE TABLE "accounts" (
   "balance" bigint NOT NULL,
   "currency" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now()),
-  "updated_at" timestamptz NOT NULL DEFAULT (now()),
-  "deleted_at" timestamptz
+  "updated_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "entries" (
@@ -13,8 +12,7 @@ CREATE TABLE "entries" (
   "account_id" bigint NOT NULL,
   "amount" bigint NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now()),
-  "updated_at" timestamptz NOT NULL DEFAULT (now()),
-  "deleted_at" timestamptz
+  "updated_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "transfers" (
@@ -23,8 +21,7 @@ CREATE TABLE "transfers" (
   "to_account_id" bigint NOT NULL,
   "amount" bigint NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now()),
-  "updated_at" timestamptz NOT NULL DEFAULT (now()),
-  "deleted_at" timestamptz
+  "updated_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE INDEX ON "accounts" ("owner");
