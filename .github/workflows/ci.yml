@@ -15,7 +15,7 @@ jobs:
       postgres:
         image: postgres:14-alpine
         env:
-          POSTGRES_USER: arhon
+          POSTGRES_USER: ardhon
           POSTGRES_PASSWORD: bismillah
           POSTGRES_DB: core
         ports:
