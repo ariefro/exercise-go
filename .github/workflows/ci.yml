@@ -18,6 +18,8 @@ jobs:
           POSTGRES_USER: arhon
           POSTGRES_PASSWORD: bismillah
           POSTGRES_DB: core
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
