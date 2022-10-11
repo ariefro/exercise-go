@@ -1,17 +1,22 @@
+ifneq (,$(wildcard ./app.env))
+	include app.env
+	export
+endif
+
 postgres:
-	docker run --name core-service -p 5432:5432 -e POSTGRES_USER=ardhon -e POSTGRES_PASSWORD=bismillah -d postgres:14-alpine
+	docker run --name ${CONTAINER_NAME} -p ${DB_PORT}:${CONTAINER_PORT} -e POSTGRES_USER=${DB_USERNAME} -e POSTGRES_PASSWORD=${DB_PASSWORD} -d ${DOCKER_IMAGE}
 
 createdb:
-	docker exec -it core-service createdb --username=ardhon --owner=ardhon core
+	docker exec -it ${CONTAINER_NAME} createdb --username=${DB_USERNAME} --owner=${DB_USERNAME} ${DB_DATABASE}
 
 dropdb:
-	docker exec -it core-service dropdb core -U ardhon
+	docker exec -it ${CONTAINER_NAME} dropdb ${DB_DATABASE} -U ${DB_USERNAME}
 
 migrateup:
-	migrate -path db/migration -database "postgresql://ardhon:bismillah@localhost:5432/core?sslmode=disable" -verbose up
+	migrate -path db/migration -database "${DB_SOURCE}" -verbose up
 
 migratedown:
-	migrate -path db/migration -database "postgresql://ardhon:bismillah@localhost:5432/core?sslmode=disable" -verbose down
+	migrate -path db/migration -database "${DB_SOURCE}" -verbose down
 
 sqlc:
 	sqlc generate
