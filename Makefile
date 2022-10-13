@@ -15,8 +15,14 @@ dropdb:
 migrateup:
 	migrate -path db/migration -database "${DB_SOURCE}" -verbose up
 
+migrateup1:
+	migrate -path db/migration -database "${DB_SOURCE}" -verbose up 1
+
 migratedown:
 	migrate -path db/migration -database "${DB_SOURCE}" -verbose down
+
+migratedown1:
+	migrate -path db/migration -database "${DB_SOURCE}" -verbose down 1
 
 sqlc:
 	sqlc generate
