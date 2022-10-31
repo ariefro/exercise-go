@@ -97,7 +97,7 @@ func TestCreateUserAPI(t *testing.T) {
 			data, err := json.Marshal(tc.request)
 			require.NoError(t, err)
 
-			url := "/api/sign-up"
+			url := "/api/user/register"
 			request, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(data))
 			require.NoError(t, err)
 
