@@ -35,6 +35,16 @@ jobs:
         with:
           go-version: ^1.15
 
+      - name: Create env file
+        run: |
+          touch app.env
+          echo DB_DRIVER=${{ secrets.DB_DRIVER }} >> app.env
+          echo DB_SOURCE=${{ secrets.DB_SOURCE }} >> app.env
+          echo SERVER_ADDRESS=${{ secrets.SERVER_ADDRESS }} >> app.env
+          echo ACCESS_TOKEN_DURATION=${{ secrets.ACCESS_TOKEN_DURATION }} >> app.env
+          echo TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY }} >> app.env 
+          cat app.env
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
