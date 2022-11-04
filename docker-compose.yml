@@ -3,9 +3,9 @@ services:
   postgres:
     image: postgres:14-alpine
     environment:
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
+      - POSTGRES_USER=ardhon
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=core
   api:
     build:
       context: .
@@ -13,7 +13,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - DB_SOURCE=${DB_SOURCE}
+      - DB_SOURCE=postgresql://ardhon:bismillah@postgres:5432/squirtle
     depends_on:
       - postgres
     entrypoint: [ "/app/wait-for-it.sh", "postgres:5432", "--", "/app/start.sh" ]
