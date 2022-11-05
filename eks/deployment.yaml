@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: squirtle-api-deployment
+  labels:
+    app: squirtle-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: squirtle-api
+  template:
+    metadata:
+      labels:
+        app: squirtle-api
+    spec:
+      containers:
+        - name: squirtle-api
+          image: 510611342067.dkr.ecr.ap-southeast-1.amazonaws.com/squirtle:39d2fea4e5cf9bfe65ee8b37bf5c87ca8e673383
+          ports:
+            - containerPort: 8080
