@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: squirtle-api
-          image: 510611342067.dkr.ecr.ap-southeast-1.amazonaws.com/squirtle:39d2fea4e5cf9bfe65ee8b37bf5c87ca8e673383
+          image: 510611342067.dkr.ecr.ap-southeast-1.amazonaws.com/squirtle:46f4b05e7f289e70bbdf8cedfdfadfe14ebf3a2a
           ports:
             - containerPort: 8080
