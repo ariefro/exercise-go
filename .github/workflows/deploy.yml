@@ -18,25 +18,20 @@ jobs:
         with:
           go-version: ^1.15
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-southeast-1
-
-      - name: Load secrets and save to app.env
-        run: aws secretsmanager get-secret-value --secret-id squirtle --query SecretString --output text | jq -r 'to_entries | map("\(.key)=\(.value)") | .[]' > app.env
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build, tag, and push docker image to Amazon ECR
-        env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: squirtle
-          IMAGE_TAG: ${{ github.sha }}
+      - name: Create env file
         run: |
-          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
-          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+          touch app.env
+          echo SERVER_ADDRESS=${{ secrets.SERVER_ADDRESS}} >> app.env
+          echo DB_DRIVER=${{ secrets.DB_DRIVER  }} >> app.env
+          echo DB_SOURCE=${{ secrets.DB_SOURCE_PRODUCTION}} >> app.env
+          echo TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY  }} >> app.env
+          echo ACCESS_TOKEN_DURATION=${{ secrets.ACCESS_TOKEN_DURATION  }} >> app.env
+          cat app.env
+
+      - name: Setup Fly
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Deploy
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
