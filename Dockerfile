@@ -13,9 +13,9 @@ COPY --from=builder /app/main .
 COPY --from=builder /app/migrate ./migrate
 COPY app.env .
 COPY start.sh .
-COPY wait-for-it.sh .
+# COPY wait-for-it.sh .
 COPY db/migration ./migration
 
+# ENTRYPOINT [ "/app/wait-for-it.sh", "36.86.63.182:5432", "--", "/app/start.sh" ]
 EXPOSE 8080
 CMD [ "/app/main" ]
-ENTRYPOINT [ "/app/start.sh" ]
