@@ -1,4 +1,4 @@
-# fly.toml file generated for mew on 2022-11-06T18:40:54+07:00
+# fly.toml file generated for mew on 2022-11-06T19:35:42+07:00
 
 app = "mew"
 kill_signal = "SIGINT"
@@ -7,6 +7,9 @@ processes = []
 
 [env]
 
+[deploy]
+  release_command = "sh start.sh"
+  
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
