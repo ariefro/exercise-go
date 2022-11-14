@@ -13,16 +13,16 @@ dropdb:
 	docker exec -it ${CONTAINER_NAME} dropdb ${DB_DATABASE} -U ${DB_USERNAME}
 
 migrateup:
-	migrate -path db/migration -database "${DB_SOURCE}" -verbose up
+	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose up
 
 migrateup1:
-	migrate -path db/migration -database "${DB_SOURCE}" -verbose up 1
+	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose up 1
 
 migratedown:
-	migrate -path db/migration -database "${DB_SOURCE}" -verbose down
+	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose down
 
 migratedown1:
-	migrate -path db/migration -database "${DB_SOURCE}" -verbose down 1
+	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose down 1
 
 sqlc:
 	sqlc generate
