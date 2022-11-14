@@ -16,7 +16,12 @@ func main() {
 		log.Fatal("cannont load config: ", err)
 	}
 
-	conn, err := sql.Open(config.DBDriver, config.DBSource)
+	var conn *sql.DB
+	if config.Environment == "local" {
+		conn, err = sql.Open(config.DBDriver, config.DBSourceDev)
+	} else {
+		conn, err = sql.Open(config.DBDriver, config.DBSource)
+	}
 	if err != nil {
 		log.Fatal("cannot connect to db:", err)
 	}

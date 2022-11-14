@@ -13,16 +13,16 @@ dropdb:
 	docker exec -it ${CONTAINER_NAME} dropdb ${DB_DATABASE} -U ${DB_USERNAME}
 
 migrateup:
-	migrate -path db/migration -database "${DB_SOURCE}" -verbose up
+	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose up
 
 migrateup1:
-	migrate -path db/migration -database "${DB_SOURCE}" -verbose up 1
+	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose up 1
 
 migratedown:
-	migrate -path db/migration -database "${DB_SOURCE}" -verbose down
+	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose down
 
 migratedown1:
-	migrate -path db/migration -database "${DB_SOURCE}" -verbose down 1
+	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose down 1
 
 sqlc:
 	sqlc generate
@@ -35,5 +35,11 @@ server:
 
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/ariefro/go-exercise/db/sqlc Store
+
+composeup:
+	docker compose --env-file app.env up --build
+
+composedown:
+	docker compose --env-file app.env down -v
 
 .PHONY: postgres createdb dropdb migrateup migratedown sqlc test server mock

@@ -13,7 +13,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - DB_SOURCE=${DB_SOURCE}
+      - DB_SOURCE=${DB_SOURCE_DEV}
     depends_on:
       - postgres
     entrypoint: [ "/app/wait-for-it.sh", "postgres:5432", "--", "/app/start.sh" ]
