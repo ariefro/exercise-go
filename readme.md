@@ -8,6 +8,24 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 
 ## Getting Started
 
+### Environment Parameter
+
+| Key                   | Desc                          |
+| --------------------- | ----------------------------- |
+| SERVER_ADDRESS        | Application Port              |
+| DB_CONNECTION         | Type of Database Connection   |
+| DB_USERNAME           | Postgres Username             |
+| DB_PASSWORD           | Postgres Password             |
+| DB_DATABASE           | Postgres Database Name        |
+| DB_PORT               | Postgres Port                 |
+| DB_SOURCE_DEV         | Connection url to local       |
+| DB_SOURCE             | Connection url to Fly.io      |
+| ACCESS_TOKEN_DURATION | Duration of access token      |
+| TOKEN_SYMMETRIC_KEY   | Secret key for generate token |
+| CONTAINER_PORT        | Docker Port                   |
+| CONTAINER_NAME        | Docker Container Name         |
+| DOCKER_IMAGE          | Docker Image Postgres         |
+
 ### Setup infrastructure
 
 - Install all dependencies
@@ -46,6 +64,42 @@ make migrateup
 make migratedown
 ```
 
+### Documentation
+
+- Generate DB documentation:
+
+  ```
+  make dbdocs
+  ```
+
+- Access the DB documentation at [this address](https://dbdocs.io/ariefromadhon26/go_exercise). Password: `secret`
+
+### How to generate code
+
+- Generate schema SQL file with DBML:
+
+  ```bash
+  make dbschema
+  ```
+
+- Generate SQL CRUD with sqlc:
+
+  ```bash
+  make sqlc
+  ```
+
+- Generate DB mock with gomock:
+
+  ```bash
+  make mock
+  ```
+
+- Create a new db migration:
+
+  ```bash
+  migrate create -ext sql -dir db/migration -seq <migration_name>
+  ```
+
 ### Run the development server:
 
 - Run server:
@@ -59,21 +113,3 @@ make start
 ```
 make test
 ```
-
-### Environment Parameter
-
-| Key                   | Desc                          |
-| --------------------- | ----------------------------- |
-| SERVER_ADDRESS        | Application Port              |
-| DB_CONNECTION         | Type of Database Connection   |
-| DB_USERNAME           | Postgres Username             |
-| DB_PASSWORD           | Postgres Password             |
-| DB_DATABASE           | Postgres Database Name        |
-| DB_PORT               | Postgres Port                 |
-| DB_SOURCE_DEV         | Connection url to local       |
-| DB_SOURCE             | Connection url to Fly.io      |
-| ACCESS_TOKEN_DURATION | Duration of access token      |
-| TOKEN_SYMMETRIC_KEY   | Secret key for generate token |
-| CONTAINER_PORT        | Docker Port                   |
-| CONTAINER_NAME        | Docker Container Name         |
-| DOCKER_IMAGE          | Docker Image Postgres         |
