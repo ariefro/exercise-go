@@ -42,4 +42,5 @@ composeup:
 composedown:
 	docker compose --env-file app.env down -v
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test server mock
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test server mock composeup composedown
+
