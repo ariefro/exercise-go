@@ -30,39 +30,39 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 
 - Install all dependencies
 
-```
-go get .
-```
+  ```
+  go get .
+  ```
 
 - Start postgres container:
 
-```
-make postgres
-```
+  ```
+  make postgres
+  ```
 
 - Create database:
 
-```
-make createdb
-```
+  ```
+  make createdb
+  ```
 
 - Drop database:
 
-```
-make dropdb
-```
+  ```
+  make dropdb
+  ```
 
 - Run db migration up all versions:
 
-```
-make migrateup
-```
+  ```
+  make migrateup
+  ```
 
 - Run db migration down all versions:
 
-```
-make migratedown
-```
+  ```
+  make migratedown
+  ```
 
 ### Documentation
 
@@ -104,12 +104,12 @@ make migratedown
 
 - Run server:
 
-```
-make start
-```
+  ```
+  make start
+  ```
 
 - Run test:
 
-```
-make test
-```
+  ```
+  make test
+  ```
