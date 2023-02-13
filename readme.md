@@ -72,7 +72,7 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
   make dbdocs
   ```
 
-- Access the DB documentation at [this address](https://dbdocs.io/ariefromadhon26/go_exercise). Password: `secret`
+- Access the DB documentation at [this address](https://dbdocs.io/ariefromadhon/go_exercise). Password: `secret`
 
 ### How to generate code
 
