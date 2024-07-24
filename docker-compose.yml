@@ -1,20 +1,18 @@
 version: '3.9'
+
+volumes:
+  go_exercise:
+    name: go_exercise
+
 services:
   postgres:
     image: postgres:14-alpine
+    restart: always
+    ports:
+      - "5433:5432"
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_DATABASE}
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - DB_SOURCE=${DB_SOURCE_DEV}
-    depends_on:
-      - postgres
-    entrypoint: [ "/app/wait-for-it.sh", "postgres:5432", "--", "/app/start.sh" ]
-    command: [ "/app/main" ]
+    volumes:
+      - go_exercise:/var/lib/postgresql/data
