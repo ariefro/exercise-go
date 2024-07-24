@@ -140,7 +140,7 @@ func TestGetAccountAPI(t *testing.T) {
 			server := newTestServer(t, store)
 			recorder := httptest.NewRecorder()
 
-			url := fmt.Sprintf("/api/account/%d", tc.accountID)
+			url := fmt.Sprintf("/api/v1/accounts/%d", tc.accountID)
 			request, err := http.NewRequest(http.MethodGet, url, nil)
 			require.NoError(t, err)
 
