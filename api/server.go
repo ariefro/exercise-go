@@ -22,19 +22,20 @@ type Server struct {
 func (server *Server) setupRouter() {
 	router := gin.Default()
 
-	api := router.Group("/api")
-	api.POST("/user/register", server.createUser)
-	api.POST("/user/login", server.loginUser)
-	api.POST("/refresh-access", server.renewAccessToken)
+	api := router.Group("/api/v1")
 
-	authRoutes := api.Use(authMiddleware(server.tokenMaker))
-	authRoutes.POST("/accounts", server.createAccount)
-	authRoutes.GET("/account/:id", server.getAccount)
-	authRoutes.GET("/accounts", server.listAccounts)
-	authRoutes.PUT("/account", server.updateAccount)
-	authRoutes.DELETE("/account/:id", server.deleteAccount)
+	usersApi := api.Group("/users")
+	usersApi.POST("/register", server.createUser)
+	usersApi.POST("/login", server.loginUser)
+	usersApi.POST("/refresh-access", server.renewAccessToken)
 
-	authRoutes.POST("/transfers", server.createTransfer)
+	accountsApi := api.Group("/accounts").Use(authMiddleware(server.tokenMaker))
+	accountsApi.POST("/", server.createAccount)
+	accountsApi.GET("/", server.listAccounts)
+	accountsApi.PUT("/", server.updateAccount)
+	accountsApi.GET("/:id", server.getAccount)
+	accountsApi.DELETE("/:id", server.deleteAccount)
+	accountsApi.POST("/transfer", server.createTransfer)
 
 	server.router = router
 }
