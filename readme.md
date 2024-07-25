@@ -19,7 +19,7 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 | DB_DATABASE           | Postgres Database Name        |
 | DB_PORT               | Postgres Port                 |
 | DB_SOURCE_DEV         | Connection url to local       |
-| DB_SOURCE             | Connection url to Fly.io      |
+| DB_SOURCE             | Connection url to Supabase      |
 | ACCESS_TOKEN_DURATION | Duration of access token      |
 | TOKEN_SYMMETRIC_KEY   | Secret key for generate token |
 | CONTAINER_PORT        | Docker Port                   |
@@ -105,7 +105,7 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 - Run server:
 
   ```
-  make start
+  make server
   ```
 
 - Run test:
