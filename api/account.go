@@ -5,8 +5,8 @@ import (
 	"errors"
 	"net/http"
 
-	db "github.com/ariefro/go-exercise/db/sqlc"
-	"github.com/ariefro/go-exercise/middlewares"
+	db "github.com/ariefro/simple-transaction/db/sqlc"
+	"github.com/ariefro/simple-transaction/middlewares"
 	"github.com/gin-gonic/gin"
 	"github.com/lib/pq"
 )

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ariefro/go-exercise/middlewares"
+	"github.com/ariefro/simple-transaction/middlewares"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/require"
 )

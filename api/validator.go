@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/ariefro/go-exercise/util"
+	"github.com/ariefro/simple-transaction/util"
 	"github.com/go-playground/validator/v10"
 )
 

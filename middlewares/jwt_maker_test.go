@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ariefro/go-exercise/util"
+	"github.com/ariefro/simple-transaction/util"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/stretchr/testify/require"
 )

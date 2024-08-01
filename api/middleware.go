@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/ariefro/go-exercise/middlewares"
+	"github.com/ariefro/simple-transaction/middlewares"
 	"github.com/gin-gonic/gin"
 )
 

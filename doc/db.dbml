@@ -1,4 +1,4 @@
-Project go_exercise {
+Project simple_transaction {
   database_type: 'PostgreSQL'
   Note: '''
     # Go Exercise Database

@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ariefro/go-exercise/util"
+	"github.com/ariefro/simple-transaction/util"
 	_ "github.com/lib/pq"
 )
 

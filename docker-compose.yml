@@ -1,8 +1,8 @@
 version: '3.9'
 
 volumes:
-  go_exercise:
-    name: go_exercise
+  simple_transaction:
+    name: simple_transaction
 
 services:
   postgres:
@@ -15,4 +15,4 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_DATABASE}
     volumes:
-      - go_exercise:/var/lib/postgresql/data
+      - simple_transaction:/var/lib/postgresql/data

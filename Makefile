@@ -31,7 +31,7 @@ server:
 	go run main.go
 
 mock:
-	mockgen -package mockdb -destination db/mock/store.go github.com/ariefro/go-exercise/db/sqlc Store
+	mockgen -package mockdb -destination db/mock/store.go github.com/ariefro/simple-transaction/db/sqlc Store
 
 composeup:
 	docker compose --env-file app.env up --build

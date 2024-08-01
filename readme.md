@@ -1,10 +1,10 @@
 ## Description
 
-In this project, I am learning step-by-step how to design, develop and deploy a backend web service from scratch. The service that I am building is a simple bank. It will provide APIs for the frontend to do the following things:
+In this project, I am learning step-by-step how to design, develop and deploy a backend web service from scratch. The service that I am building is a simple transaction. It will provide APIs for the frontend to do the following things:
 
-- Create and manage bank accounts, which are composed of owner’s name, balance, and currency.
+- Create and manage accounts, which are composed of owner’s name, balance, and currency.
 - Perform a money transfer between 2 accounts. This should happen within a transaction, so that either both accounts’ balance are updated successfully or none of them are.
-- Record all balance changes to each of the bank accounts. So every time some money is added to or subtracted from the account, an account entry record will be created.
+- Record all balance changes to each of the accounts. So every time some money is added to or subtracted from the account, an account entry record will be created.
 
 ## Getting Started
 
@@ -72,7 +72,7 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
   make dbdocs
   ```
 
-- Access the DB documentation at [this address](https://dbdocs.io/ariefromadhon/go_exercise). Password: `secret`
+- Access the DB documentation at [this address](https://dbdocs.io/ariefromadhon/simple_transaction). Password: `secret`
 
 ### How to generate code
 

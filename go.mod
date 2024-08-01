@@ -1,4 +1,4 @@
-module github.com/ariefro/go-exercise
+module github.com/ariefro/simple-transaction
 
 go 1.19
 

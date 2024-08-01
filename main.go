@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"log"
 
-	"github.com/ariefro/go-exercise/api"
-	db "github.com/ariefro/go-exercise/db/sqlc"
-	"github.com/ariefro/go-exercise/util"
+	"github.com/ariefro/simple-transaction/api"
+	db "github.com/ariefro/simple-transaction/db/sqlc"
+	"github.com/ariefro/simple-transaction/util"
 	_ "github.com/lib/pq"
 )
 
