@@ -3,11 +3,15 @@ package main
 import (
 	"database/sql"
 	"log"
+	"net"
 
-	"github.com/ariefro/simple-transaction/api"
 	db "github.com/ariefro/simple-transaction/db/sqlc"
+	"github.com/ariefro/simple-transaction/gapi"
+	"github.com/ariefro/simple-transaction/pb"
 	"github.com/ariefro/simple-transaction/util"
 	_ "github.com/lib/pq"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 func main() {
@@ -27,10 +31,37 @@ func main() {
 	}
 
 	store := db.NewStore(conn)
-	server, err := api.NewServer(config, store)
+	runGrpcServer(config, store)
+}
 
-	err = server.Start(config.ServerAddress)
+func runGrpcServer(config util.Config, store db.Store) {
+	server, err := gapi.NewServer(config, store)
 	if err != nil {
-		log.Fatal("cannot start server:", err)
+		log.Fatal("cannot create server: ", err)
+	}
+
+	grpcServer := grpc.NewServer()
+	pb.RegisterSimpleTransactionServer(grpcServer, server)
+	reflection.Register(grpcServer)
+
+	listener, err := net.Listen("tcp", config.GRPCServerAddress)
+	if err != nil {
+		log.Fatal("cannot create listener: ", err)
+	}
+
+	log.Printf("start gRPC server at %s", listener.Addr().String())
+	if err := grpcServer.Serve(listener); err != nil {
+		log.Fatal("cannot start gRPC server: ", err)
 	}
 }
+
+// func runHttpServer(config util.Config, store db.Store) {
+// 	server, err := api.NewServer(config, store)
+// 	if err != nil {
+// 		log.Fatal("cannot create server:", err)
+// 	}
+
+// 	if err := server.Start(config.HttpServerAddress); err != nil {
+// 		log.Fatal("cannot start server:", err)
+// 	}
+// }

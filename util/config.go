@@ -12,7 +12,8 @@ type Config struct {
 	DBSource             string        `mapstructure:"DB_SOURCE"`
 	DBSourceDev          string        `mapstructure:"DB_SOURCE_DEV"`
 	Environment          string        `mapstructure:"CORE_ENVIRONMENT"`
-	ServerAddress        string        `mapstructure:"SERVER_ADDRESS"`
+	HttpServerAddress    string        `mapstructure:"HTTP_SERVER_ADDRESS"`
+	GRPCServerAddress    string        `mapstructure:"GRPC_SERVER_ADDRESS"`
 	RefreshTokenDuration time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
 	TokenSymmetricKey    string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
 }

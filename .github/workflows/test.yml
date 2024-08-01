@@ -40,7 +40,7 @@ jobs:
           touch app.env
           echo DB_DRIVER=${{ secrets.DB_DRIVER  }} >> app.env
           echo DB_SOURCE_DEV=${{ secrets.DB_SOURCE_DEV}} >> app.env
-          echo SERVER_ADDRESS=${{ secrets.SERVER_ADDRESS}} >> app.env
+          echo HTTP_SERVER_ADDRESS=${{ secrets.HTTP_SERVER_ADDRESS}} >> app.env
           cat app.env
 
       - name: Install golang-migrate
