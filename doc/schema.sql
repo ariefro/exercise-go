@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml.dbdiagram.io)
 -- Database: PostgreSQL
--- Generated at: 2024-07-25T02:24:17.561Z
+-- Generated at: 2024-08-06T22:38:34.013Z
 
 CREATE TABLE "users" (
   "username" varchar PRIMARY KEY,
@@ -35,7 +35,7 @@ CREATE TABLE "transfers" (
 );
 
 CREATE TABLE "sessions" (
-  "id" uuid PRIMARY KEY,
+  "id" varchar PRIMARY KEY,
   "username" varchar NOT NULL,
   "refresh_token" varchar NOT NULL,
   "user_agent" varchar NOT NULL,
