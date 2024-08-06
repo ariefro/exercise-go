@@ -1,25 +1,20 @@
-ifneq (,$(wildcard ./app.env))
-	include app.env
-	export
-endif
-
 postgresup:
-	docker compose -f docker-compose.yml --env-file ./app.env up --build
+	docker compose -f docker-compose.yml --env-file ./local.env up --build
 
 postgresdown:
-	docker compose -f docker-compose.yml --env-file ./app.env down -v
+	docker compose -f docker-compose.yml --env-file ./local.env down -v
 
 migrateup:
-	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose up
+	@export $$(cat local.env | xargs) && migrate -path db/migration -database "${DB_SOURCE}" -verbose up
 
 migrateup1:
-	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose up 1
+	@export $$(cat local.env | xargs) && migrate -path db/migration -database "${DB_SOURCE}" -verbose up 1
 
 migratedown:
-	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose down
+	@export $$(cat local.env | xargs) && migrate -path db/migration -database "${DB_SOURCE}" -verbose down
 
 migratedown1:
-	migrate -path db/migration -database "${DB_SOURCE_DEV}" -verbose down 1
+	@export $$(cat local.env | xargs) && migrate -path db/migration -database "${DB_SOURCE}" -verbose down 1
 
 sqlc:
 	sqlc generate
@@ -34,10 +29,10 @@ mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/ariefro/simple-transaction/db/sqlc Store
 
 composeup:
-	docker compose --env-file app.env up --build
+	docker compose -f docker-compose-dev.yml --env-file stage.env up --build
 
 composedown:
-	docker compose --env-file app.env down -v
+	docker compose -f docker-compose-dev.yml --env-file stage.env down -v
 
 dbdocs:
 	dbdocs build doc/db.dbml
