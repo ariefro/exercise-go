@@ -37,11 +37,11 @@ jobs:
 
       - name: Create env file
         run: |
-          touch app.env
-          echo DB_DRIVER=${{ secrets.DB_DRIVER  }} >> app.env
-          echo DB_SOURCE_DEV=${{ secrets.DB_SOURCE_DEV}} >> app.env
-          echo HTTP_SERVER_ADDRESS=${{ secrets.HTTP_SERVER_ADDRESS}} >> app.env
-          cat app.env
+          touch local.env
+          echo DB_DRIVER=${{ secrets.DB_DRIVER  }} >> local.env
+          echo DB_SOURCE_DEV=${{ secrets.DB_SOURCE_DEV}} >> local.env
+          echo HTTP_SERVER_ADDRESS=${{ secrets.HTTP_SERVER_ADDRESS}} >> local.env
+          cat local.env
 
       - name: Install golang-migrate
         run: |
