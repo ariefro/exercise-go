@@ -12,19 +12,16 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 
 | Key                   | Desc                          |
 | --------------------- | ----------------------------- |
-| SERVER_ADDRESS        | Application Port              |
+| HTTP_SERVER_ADDRESS        | Http Application Port              |
+| GRPC_SERVER_ADDRESS        | gRPC Application Port              |
 | DB_CONNECTION         | Type of Database Connection   |
 | DB_USERNAME           | Postgres Username             |
 | DB_PASSWORD           | Postgres Password             |
 | DB_DATABASE           | Postgres Database Name        |
 | DB_PORT               | Postgres Port                 |
-| DB_SOURCE_DEV         | Connection url to local       |
 | DB_SOURCE             | Connection url to Supabase      |
 | ACCESS_TOKEN_DURATION | Duration of access token      |
 | TOKEN_SYMMETRIC_KEY   | Secret key for generate token |
-| CONTAINER_PORT        | Docker Port                   |
-| CONTAINER_NAME        | Docker Container Name         |
-| DOCKER_IMAGE          | Docker Image Postgres         |
 
 ### Setup infrastructure
 
