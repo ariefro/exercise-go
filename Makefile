@@ -5,16 +5,16 @@ postgresdown:
 	docker compose -f docker-compose.yml --env-file ./local.env down -v
 
 migrateup:
-	@export $$(cat local.env | xargs) && migrate -path db/migration -database "${DB_SOURCE}" -verbose up
+	@export $$(cat local.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose up
 
 migrateup1:
-	@export $$(cat local.env | xargs) && migrate -path db/migration -database "${DB_SOURCE}" -verbose up 1
+	@export $$(cat local.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose up 1
 
 migratedown:
-	@export $$(cat local.env | xargs) && migrate -path db/migration -database "${DB_SOURCE}" -verbose down
+	@export $$(cat local.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose down
 
 migratedown1:
-	@export $$(cat local.env | xargs) && migrate -path db/migration -database "${DB_SOURCE}" -verbose down 1
+	@export $$(cat local.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose down 1
 
 sqlc:
 	sqlc generate
