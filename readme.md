@@ -9,11 +9,13 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 ## Getting Started
 
 ### Environment Parameter
+1. Create a configuration file named `local.env` in the root directory.
+2. Define the following environment variables in the `local.env` file:
 
 | Key                   | Desc                          |
 | --------------------- | ----------------------------- |
-| HTTP_SERVER_ADDRESS        | Http Application Port              |
-| GRPC_SERVER_ADDRESS        | gRPC Application Port              |
+| HTTP_SERVER_ADDRESS        | HTTP Application Port              |
+| GRPC_SERVER_ADDRESS        | GRPC Application Port              |
 | DB_CONNECTION         | Type of Database Connection   |
 | DB_USERNAME           | Postgres Username             |
 | DB_PASSWORD           | Postgres Password             |
