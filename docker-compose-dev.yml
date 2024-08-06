@@ -1,0 +1,42 @@
+version: '3.9'
+
+volumes:
+  simple_transaction:
+    name: simple_transaction
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: simple-transaction-postgres
+    restart: always
+    ports:
+      - "5758:5432"
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    volumes:
+      - simple_transaction:/var/lib/postgresql/data
+
+  app:
+    container_name: simple
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ardhon/simple-transaction
+    platform: linux/amd64
+    restart: always
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+    entrypoint:
+      [
+        "/app/wait-for-it.sh",
+        "postgres:5432",
+        "--",
+        "/app/start.sh"
+      ]
+    command: [ "/app/main" ]
+    volumes:
+      - ./stage.env:/app/stage.env
