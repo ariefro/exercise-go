@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -27,6 +30,7 @@ jobs:
           echo APP_ENVIRONMENT=${{ secrets.APP_ENVIRONMENT }} >> stage.env
           echo HTTP_SERVER_ADDRESS=${{ secrets.HTTP_SERVER_ADDRESS }} >> stage.env
           echo GRPC_SERVER_ADDRESS=${{ secrets.GRPC_SERVER_ADDRESS }} >> stage.env
+          echo DB_DRIVER=${{ secrets.DB_DRIVER  }} >> stage.env
           echo DB_SOURCE=${{ secrets.DB_SOURCE }} >> stage.env
           echo TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY }} >> stage.env
           echo ACCESS_TOKEN_DURATION=${{ secrets.ACCESS_TOKEN_DURATION }} >> stage.env
@@ -37,6 +41,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: Dockerfile
+          file: ./Dockerfile
           push: true
           tags: ardhon/simple-transaction:latest
