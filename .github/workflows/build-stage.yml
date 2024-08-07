@@ -28,19 +28,15 @@ jobs:
           echo HTTP_SERVER_ADDRESS=${{ secrets.HTTP_SERVER_ADDRESS }} >> stage.env
           echo GRPC_SERVER_ADDRESS=${{ secrets.GRPC_SERVER_ADDRESS }} >> stage.env
           echo DB_SOURCE=${{ secrets.DB_SOURCE }} >> stage.env
-          echo DB_DRIVER=${{ secrets.DB_DRIVER }} >> stage.env
           echo TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY }} >> stage.env
           echo ACCESS_TOKEN_DURATION=${{ secrets.ACCESS_TOKEN_DURATION }} >> stage.env
           echo REFRESH_TOKEN_DURATION=${{ secrets.REFRESH_TOKEN_DURATION }} >> stage.env
-
           cat stage.env
 
       - name: Build and push docker image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker-compose-dev.yml
+          file: Dockerfile
           push: true
           tags: ardhon/simple-transaction:latest
-          secrets: |
-            stage.env
