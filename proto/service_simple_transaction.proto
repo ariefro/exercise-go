@@ -5,8 +5,21 @@ package pb;
 import "google/api/annotations.proto";
 import "rpc_create_user.proto";
 import "rpc_login_user.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/ariefro/simple-transaction/pb";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+      title: "Simple Transaction API";
+      version: "1.0";
+      contact: {
+        name: "Arief Romadhon";
+        url: "https://github.com/ariefro";
+        email: "ariefromadhon26@gmail.com";
+      };
+    };
+};
 
 service SimpleTransaction {
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {
