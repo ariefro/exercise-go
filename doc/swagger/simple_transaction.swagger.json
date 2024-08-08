@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Simple Transaction API",
-    "version": "1.0",
+    "version": "1.1",
     "contact": {
       "name": "Arief Romadhon",
       "url": "https://github.com/ariefro",
@@ -23,6 +23,8 @@
   "paths": {
     "/api/v1/users/login": {
       "post": {
+        "summary": "Login user",
+        "description": "Use this API to login user and get access token \u0026 refresh token",
         "operationId": "SimpleTransaction_LoginUser",
         "responses": {
           "200": {
@@ -55,6 +57,8 @@
     },
     "/api/v1/users/register": {
       "post": {
+        "summary": "Create new user",
+        "description": "Use this API to create a new user",
         "operationId": "SimpleTransaction_CreateUser",
         "responses": {
           "200": {

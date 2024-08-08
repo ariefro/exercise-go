@@ -12,7 +12,7 @@ option go_package = "github.com/ariefro/simple-transaction/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
     info: {
       title: "Simple Transaction API";
-      version: "1.0";
+      version: "1.1";
       contact: {
         name: "Arief Romadhon";
         url: "https://github.com/ariefro";
@@ -27,11 +27,19 @@ service SimpleTransaction {
             post: "/api/v1/users/register",
             body: "*"
         };
-    }
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to create a new user";
+            summary: "Create new user";
+        };
+    };
     rpc LoginUser (LoginUserRequest) returns (LoginUserResponse) {
         option (google.api.http) = {
             post: "/api/v1/users/login",
             body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to login user and get access token & refresh token";
+            summary: "Login user";
         };
     }
 }
