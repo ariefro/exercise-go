@@ -9,7 +9,7 @@ services:
     image: postgres:14-alpine
     restart: always
     ports:
-      - "5758:5432"
+      - "${DB_PORT}:5432"
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
