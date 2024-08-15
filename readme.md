@@ -9,57 +9,61 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 ## Getting Started
 
 ### Environment Parameter
-1. Create a configuration file named `local.env` in the root directory.
-2. Define the following environment variables in the `local.env` file:
+1. Create a Configuration File:
+Create a file named `local.env` in the root directory of your project. This file will be used to define environment variables necessary for the application.
+2. Define Environment Variables:
+In the `local.env` file, define the following environment variables:
 
-| Key                   | Desc                          |
-| --------------------- | ----------------------------- |
-| HTTP_SERVER_ADDRESS        | HTTP Application Port              |
-| GRPC_SERVER_ADDRESS        | GRPC Application Port              |
-| DB_CONNECTION         | Type of Database Connection   |
-| DB_USERNAME           | Postgres Username             |
-| DB_PASSWORD           | Postgres Password             |
-| DB_DATABASE           | Postgres Database Name        |
-| DB_PORT               | Postgres Port                 |
-| DB_SOURCE             | Connection url to Supabase      |
-| ACCESS_TOKEN_DURATION | Duration of access token      |
-| TOKEN_SYMMETRIC_KEY   | Secret key for generate token |
+| Key                   | Description                          | Example Value |
+| --------------------- | ----------------------------- | -------------------- |
+| `HTTP_SERVER_ADDRESS`        | The address and port for the HTTP server               | `0.0.0.0:8080` |
+| `GRPC_SERVER_ADDRESS `       | The address and port for the gRPC server               | `0.0.0.0:50051` |
+| `DB_CONNECTION`         | Type of database connection    | `postgres` |
+| `DB_USERNAME`           | Username for accessing the Postgres database        | `your_username`|
+| `DB_PASSWORD  `         | Password for the Postgres database user       | `your_password` |
+| `DB_DATABASE`           | Name of the Postgres database to connect to     | `your_database`|
+| `DB_PORT`               | Port number for the Postgres database                | `5432` |
+| `DB_SOURCE  `           | Database connection URL or DSN (Data Source Name)     | `postgresql://your_username:your_password@localhost:5432/your_database?sslmode=disable` |
+| `ACCESS_TOKEN_DURATION` | Duration for which the access token remains valid     | `15m` |
+| `REFRESH_TOKEN_DURATION` | Duration for which the refresh token remains valid       | `1h` |
+| `TOKEN_SYMMETRIC_KEY`   | Secret key used for generating and verifying access tokens | `your_secret_key` |
+| `MIGRATION_SOURCE_URL`   | Source URL for Golang Migrate migrations| `file://db/migration` |
 
 ### Setup infrastructure
 
 - Install all dependencies
 
-  ```
+  ```bash
   go get .
   ```
 
 - Start postgres container:
 
-  ```
+  ```bash
   make postgres
   ```
 
 - Create database:
 
-  ```
+  ```bash
   make createdb
   ```
 
 - Drop database:
 
-  ```
+  ```bash
   make dropdb
   ```
 
 - Run db migration up all versions:
 
-  ```
+  ```bash
   make migrateup
   ```
 
 - Run db migration down all versions:
 
-  ```
+  ```bash
   make migratedown
   ```
 
@@ -67,7 +71,7 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 
 - Generate DB documentation:
 
-  ```
+  ```bash
   make dbdocs
   ```
 
@@ -103,12 +107,12 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 
 - Run server:
 
-  ```
+  ```bash
   make server
   ```
 
 - Run test:
 
-  ```
+  ```bash
   make test
   ```
