@@ -43,6 +43,7 @@ jobs:
           echo GRPC_SERVER_ADDRESS=${{ secrets.GRPC_SERVER_ADDRESS }} >> local.env
           echo DB_DRIVER=${{ secrets.DB_DRIVER  }} >> local.env
           echo DB_SOURCE=${{ secrets.DB_SOURCE }} >> local.env
+          echo MIGRATION_SOURCE_URL=${{ secrets.MIGRATION_SOURCE_URL}} >> local.env
           echo TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY }} >> local.env
           echo ACCESS_TOKEN_DURATION=${{ secrets.ACCESS_TOKEN_DURATION }} >> local.env
           echo REFRESH_TOKEN_DURATION=${{ secrets.REFRESH_TOKEN_DURATION }} >> local.env

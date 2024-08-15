@@ -32,6 +32,7 @@ jobs:
           echo GRPC_SERVER_ADDRESS=${{ secrets.GRPC_SERVER_ADDRESS }} >> stage.env
           echo DB_DRIVER=${{ secrets.DB_DRIVER  }} >> stage.env
           echo DB_SOURCE=${{ secrets.DB_SOURCE }} >> stage.env
+          echo MIGRATION_SOURCE_URL=${{ secrets.MIGRATION_SOURCE_URL}} >> stage.env
           echo TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY }} >> stage.env
           echo ACCESS_TOKEN_DURATION=${{ secrets.ACCESS_TOKEN_DURATION }} >> stage.env
           echo REFRESH_TOKEN_DURATION=${{ secrets.REFRESH_TOKEN_DURATION }} >> stage.env
