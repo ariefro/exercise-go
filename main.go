@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"database/sql"
-	"log"
 	"net"
 	"net/http"
+	"os"
 
 	db "github.com/ariefro/simple-transaction/db/sqlc"
 	_ "github.com/ariefro/simple-transaction/doc/statik"
@@ -18,6 +18,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/lib/pq"
 	"github.com/rakyll/statik/fs"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -26,12 +28,15 @@ import (
 func main() {
 	config, err := util.LoadConfig(".")
 	if err != nil {
-		log.Fatal("cannont load config: ", err)
+		log.Fatal().Err(err).Msg("cannont load config")
+	}
+	if config.Environment == "development" {
+		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 	}
 
 	conn, err := sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
-		log.Fatal("cannot connect to db:", err)
+		log.Fatal().Err(err).Msg("cannot connect to db")
 	}
 
 	runDBMigration(config.MigrationSourceURL, config.DBSource)
@@ -44,20 +49,20 @@ func main() {
 func runDBMigration(migrationURL, dbSource string) {
 	migration, err := migrate.New(migrationURL, dbSource)
 	if err != nil {
-		log.Fatal("cannot create new migrate instance: ", err)
+		log.Fatal().Err(err).Msg("cannot create new migrate instance")
 	}
 
 	if err = migration.Up(); err != nil && err != migrate.ErrNoChange {
-		log.Fatal("failed to run migrate up: ", err)
+		log.Fatal().Err(err).Msg("failed to run migrate up")
 	}
 
-	log.Println("db migrated successfully")
+	log.Info().Msg("db migrated successfully")
 }
 
 func runGrpcServer(config util.Config, store db.Store) {
 	server, err := gapi.NewServer(config, store)
 	if err != nil {
-		log.Fatal("cannot create server: ", err)
+		log.Fatal().Err(err).Msg("cannot create server")
 	}
 
 	grpcLogger := grpc.UnaryInterceptor(gapi.GrpcLogger)
@@ -67,19 +72,19 @@ func runGrpcServer(config util.Config, store db.Store) {
 
 	listener, err := net.Listen("tcp", config.GRPCServerAddress)
 	if err != nil {
-		log.Fatal("cannot create listener: ", err)
+		log.Fatal().Err(err).Msg("cannot create listener")
 	}
 
-	log.Printf("start gRPC server at %s", listener.Addr().String())
+	log.Info().Msgf("start gRPC server at %s", listener.Addr().String())
 	if err := grpcServer.Serve(listener); err != nil {
-		log.Fatal("cannot start gRPC server: ", err)
+		log.Fatal().Err(err).Msg("cannot start gRPC server")
 	}
 }
 
 func runGatewayServer(config util.Config, store db.Store) {
 	server, err := gapi.NewServer(config, store)
 	if err != nil {
-		log.Fatal("cannot create server: ", err)
+		log.Fatal().Err(err).Msg("cannot create server")
 	}
 
 	// the protocol buffer compiler generates camelCase JSON tags that are used by default
@@ -99,7 +104,7 @@ func runGatewayServer(config util.Config, store db.Store) {
 	defer cancel()
 
 	if err := pb.RegisterSimpleTransactionHandlerServer(ctx, grpcMux, server); err != nil {
-		log.Fatal("cannot register handler server")
+		log.Fatal().Err(err).Msg("cannot register handler server")
 	}
 
 	mux := http.NewServeMux()
@@ -107,7 +112,7 @@ func runGatewayServer(config util.Config, store db.Store) {
 
 	statikFS, err := fs.New()
 	if err != nil {
-		log.Fatal("cannot create statik fs: ", err)
+		log.Fatal().Err(err).Msg("cannot create statik fs")
 	}
 
 	swaggerHandler := http.StripPrefix("/swagger/", http.FileServer(statikFS))
@@ -115,12 +120,12 @@ func runGatewayServer(config util.Config, store db.Store) {
 
 	listener, err := net.Listen("tcp", config.HttpServerAddress)
 	if err != nil {
-		log.Fatal("cannot create listener: ", err)
+		log.Fatal().Err(err).Msg("cannot create listener")
 	}
 
-	log.Printf("start HTTP gateway server at %s", listener.Addr().String())
+	log.Info().Msgf("start HTTP gateway server at %s", listener.Addr().String())
 	if err := http.Serve(listener, mux); err != nil {
-		log.Fatal("cannot start HTTP gateway server: ", err)
+		log.Fatal().Err(err).Msg("cannot start HTTP gateway server")
 	}
 }
 
