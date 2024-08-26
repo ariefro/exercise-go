@@ -16,6 +16,7 @@ In the `local.env` file, define the following environment variables:
 
 | Key                   | Description                          | Example Value |
 | --------------------- | ----------------------------- | -------------------- |
+| `APP_ENVIRONMENT`        | This field specifies the environment in which the application is running               | `development` |
 | `HTTP_SERVER_ADDRESS`        | The address and port for the HTTP server               | `0.0.0.0:8080` |
 | `GRPC_SERVER_ADDRESS `       | The address and port for the gRPC server               | `0.0.0.0:50051` |
 | `DB_CONNECTION`         | Type of database connection    | `postgres` |
