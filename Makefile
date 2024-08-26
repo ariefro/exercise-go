@@ -23,7 +23,7 @@ test:
 	go test -v -cover ./...
 
 server:
-	go run main.go
+	APP_ENVIRONMENT=development air
 
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/ariefro/simple-transaction/db/sqlc Store
