@@ -22,7 +22,7 @@ type Config struct {
 
 func LoadConfig(path string) (config Config, err error) {
 	env := os.Getenv("APP_ENVIRONMENT")
-	if env == "development" {
+	if env == "" || env == "development" {
 		env = "local"
 	}
 
