@@ -16,6 +16,8 @@ type PayloadSendVerifyEmail struct {
 	Username string `json:"username"`
 }
 
+// DistributeTaskSendVerifyEmail serializes the payload and enqueues
+// the task to be processed later by a worker.
 func (distributor *RedisTaskDistributor) DistributeTaskSendVerifyEmail(
 	ctx context.Context,
 	payload *PayloadSendVerifyEmail,
@@ -26,7 +28,10 @@ func (distributor *RedisTaskDistributor) DistributeTaskSendVerifyEmail(
 		return fmt.Errorf("failed to marshal task payload: %w", err)
 	}
 
+	// Create a new task with the payload.
 	task := asynq.NewTask(TaskSendVerifyEmail, jsonPayload, opts...)
+
+	// Enqueue the task into the Redis queue.
 	info, err := distributor.client.EnqueueContext(ctx, task)
 	if err != nil {
 		return fmt.Errorf("failed to enqueue task: %w", err)
@@ -42,6 +47,8 @@ func (distributor *RedisTaskDistributor) DistributeTaskSendVerifyEmail(
 	return nil
 }
 
+// ProcessTaskSendVerifyEmail processes the "send verify email" task
+// by retrieving the user information and sending a verification email.
 func (processor *RedisTaskProcessor) ProcessTaskSendVerifyEmail(ctx context.Context, task *asynq.Task) error {
 	var payload PayloadSendVerifyEmail
 	if err := json.Unmarshal(task.Payload(), &payload); err != nil {
