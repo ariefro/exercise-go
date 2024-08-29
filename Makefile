@@ -4,6 +4,9 @@ postgresup:
 postgresdown:
 	docker compose -f docker-compose.yml --env-file ./local.env down -v
 
+new_migration:
+	migrate create -ext sql -dir db/migration -seq $(name)
+
 migrateup:
 	@export $$(cat local.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose up
 
