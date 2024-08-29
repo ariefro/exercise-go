@@ -20,7 +20,7 @@ sqlc:
 	sqlc generate
 
 test:
-	go test -v -cover ./...
+	go test -v -cover -short ./...
 
 server:
 	APP_ENVIRONMENT=development air
@@ -53,5 +53,5 @@ proto:
 redis:
 	docker run --name redis -p 6379:6379 -d redis:7-alpine
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test server mock composeup composedown dbdocs dbschema proto redis
+.PHONY: postgres createdb dropdb new_migration migrateup migratedown sqlc test server mock composeup composedown dbdocs dbschema proto redis
 
