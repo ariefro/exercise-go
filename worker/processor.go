@@ -5,6 +5,7 @@ import (
 
 	db "github.com/ariefro/simple-transaction/db/sqlc"
 	"github.com/hibiken/asynq"
+	"github.com/redis/go-redis/v9"
 	"github.com/rs/zerolog/log"
 )
 
@@ -26,6 +27,8 @@ type RedisTaskProcessor struct {
 // NewRedisTaskProcessor creates a new RedisTaskProcessor with the
 // provided Redis client options and a database store for user data.
 func NewRedisTaskProcessor(redisOpt asynq.RedisClientOpt, store db.Store) TaskProcessor {
+	logger := NewLogger()
+	redis.SetLogger(logger)
 	// Create a new Asynq server instance with Redis as the backend.
 	server := asynq.NewServer(
 		redisOpt,
