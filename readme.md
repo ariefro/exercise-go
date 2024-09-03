@@ -24,11 +24,12 @@ In the `local.env` file, define the following environment variables:
 | `DB_PASSWORD  `         | Password for the Postgres database user       | `your_password` |
 | `DB_DATABASE`           | Name of the Postgres database to connect to     | `your_database`|
 | `DB_PORT`               | Port number for the Postgres database                | `5432` |
-| `DB_SOURCE  `           | Database connection URL or DSN (Data Source Name)     | `postgresql://your_username:your_password@localhost:5432/your_database?sslmode=disable` |
+| `DB_SOURCE`           | Postgres database connection URL     | `postgresql://your_username:your_password@localhost:5432/your_database?sslmode=prefer` |
+| `MIGRATION_SOURCE_URL`   | Source URL for Golang Migrate migrations| `file://db/migration` |
+| `REDIS_ADDRESS`   | Redis database connection URL| `redis://localhost:6379` |
 | `ACCESS_TOKEN_DURATION` | Duration for which the access token remains valid     | `15m` |
 | `REFRESH_TOKEN_DURATION` | Duration for which the refresh token remains valid       | `1h` |
 | `TOKEN_SYMMETRIC_KEY`   | Secret key used for generating and verifying access tokens | `your_secret_key` |
-| `MIGRATION_SOURCE_URL`   | Source URL for Golang Migrate migrations| `file://db/migration` |
 
 ### Setup infrastructure
 
@@ -38,31 +39,37 @@ In the `local.env` file, define the following environment variables:
   go get .
   ```
 
+- Start redis container:
+
+  ```bash
+  make redis
+  ```
+
 - Start postgres container:
 
   ```bash
   make postgres
   ```
 
-- Create database:
+- Create postgres database:
 
   ```bash
   make createdb
   ```
 
-- Drop database:
+- Drop postgres database:
 
   ```bash
   make dropdb
   ```
 
-- Run db migration up all versions:
+- Run postgres db migration up all versions:
 
   ```bash
   make migrateup
   ```
 
-- Run db migration down all versions:
+- Run postgres db migration down all versions:
 
   ```bash
   make migratedown
