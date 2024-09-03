@@ -21,6 +21,7 @@ import (
 	"github.com/hibiken/asynq"
 	_ "github.com/lib/pq"
 	"github.com/rakyll/statik/fs"
+	"github.com/redis/go-redis/v9"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
@@ -46,8 +47,15 @@ func main() {
 
 	store := db.NewStore(conn)
 
+	opt, err := redis.ParseURL(config.RedisAddress)
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to parse redis url")
+	}
+
 	redisOpt := asynq.RedisClientOpt{
-		Addr: config.RedisAddress,
+		Addr:     opt.Addr,
+		Username: opt.Username,
+		Password: opt.Password,
 	}
 
 	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
