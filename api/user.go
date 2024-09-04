@@ -2,6 +2,7 @@ package api
 
 import (
 	"database/sql"
+	"errors"
 	"net/http"
 	"time"
 
@@ -105,6 +106,11 @@ func (server Server) loginUser(ctx *gin.Context) {
 		}
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
+	}
+
+	if !user.IsEmailVerified {
+		err := errors.New("please check your email, you need to verify your email address")
+		ctx.JSON(http.StatusNotFound, errorResponse(err))
 	}
 
 	err = util.CheckPassword(req.Password, user.HashedPassword)
