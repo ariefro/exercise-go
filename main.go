@@ -30,12 +30,22 @@ import (
 )
 
 func main() {
-	config, err := util.LoadConfig(".")
+	env := os.Getenv("APP_ENVIRONMENT")
+	if env == "" {
+		env = "development"
+	}
+
+	var configPath string
+	if env == "development" {
+		configPath = "."
+		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+	} else {
+		configPath = "/etc/secrets"
+	}
+
+	config, err := util.LoadConfig(configPath)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannont load config")
-	}
-	if config.Environment == "development" {
-		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
 	}
 
 	conn, err := sql.Open(config.DBDriver, config.DBSource)

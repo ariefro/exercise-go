@@ -10,9 +10,9 @@ In this project, I am learning step-by-step how to design, develop and deploy a 
 
 ### Environment Parameter
 1. Create a Configuration File:
-Create a file named `local.env` in the root directory of your project. This file will be used to define environment variables necessary for the application.
+Create a file named `development.env` in the root directory of your project. This file will be used to define environment variables necessary for the application.
 2. Define Environment Variables:
-In the `local.env` file, define the following environment variables:
+In the `development.env` file, define the following environment variables:
 
 | Key                   | Description                          | Example Value |
 | --------------------- | ----------------------------- | -------------------- |
