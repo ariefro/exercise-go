@@ -18,12 +18,17 @@ func (server *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (
 	if violations != nil {
 		return nil, invalidArgumentError(violations)
 	}
+
 	user, err := server.store.GetUser(ctx, req.GetUsername())
 	if err != nil {
 		if err == sql.ErrNoRows {
 			return nil, status.Errorf(codes.NotFound, "user not found")
 		}
 		return nil, status.Errorf(codes.Internal, "failed to find user")
+	}
+
+	if !user.IsEmailVerified {
+		return nil, status.Errorf(codes.Unauthenticated, "please check your email, you need to verify your email address")
 	}
 
 	err = util.CheckPassword(req.GetPassword(), user.HashedPassword)
