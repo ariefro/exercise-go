@@ -26,17 +26,17 @@ jobs:
 
       - name: Create env file
         run: |
-          touch stage.env
-          echo APP_ENVIRONMENT=${{ secrets.APP_ENVIRONMENT }} >> stage.env
-          echo HTTP_SERVER_ADDRESS=${{ secrets.HTTP_SERVER_ADDRESS }} >> stage.env
-          echo GRPC_SERVER_ADDRESS=${{ secrets.GRPC_SERVER_ADDRESS }} >> stage.env
-          echo DB_DRIVER=${{ secrets.DB_DRIVER  }} >> stage.env
-          echo DB_SOURCE=${{ secrets.DB_SOURCE }} >> stage.env
-          echo MIGRATION_SOURCE_URL=${{ secrets.MIGRATION_SOURCE_URL}} >> stage.env
-          echo TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY }} >> stage.env
-          echo ACCESS_TOKEN_DURATION=${{ secrets.ACCESS_TOKEN_DURATION }} >> stage.env
-          echo REFRESH_TOKEN_DURATION=${{ secrets.REFRESH_TOKEN_DURATION }} >> stage.env
-          cat stage.env
+          touch staging.env
+          echo APP_ENVIRONMENT=${{ secrets.APP_ENVIRONMENT }} >> staging.env
+          echo HTTP_SERVER_ADDRESS=${{ secrets.HTTP_SERVER_ADDRESS }} >> staging.env
+          echo GRPC_SERVER_ADDRESS=${{ secrets.GRPC_SERVER_ADDRESS }} >> staging.env
+          echo DB_DRIVER=${{ secrets.DB_DRIVER  }} >> staging.env
+          echo DB_SOURCE=${{ secrets.DB_SOURCE }} >> staging.env
+          echo MIGRATION_SOURCE_URL=${{ secrets.MIGRATION_SOURCE_URL}} >> staging.env
+          echo TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY }} >> staging.env
+          echo ACCESS_TOKEN_DURATION=${{ secrets.ACCESS_TOKEN_DURATION }} >> staging.env
+          echo REFRESH_TOKEN_DURATION=${{ secrets.REFRESH_TOKEN_DURATION }} >> staging.env
+          cat staging.env
 
       - name: Build and push docker image
         uses: docker/build-push-action@v6
