@@ -1,29 +1,29 @@
 postgresup:
-	docker compose -f docker-compose.yml --env-file ./local.env up --build
+	docker compose -f docker-compose.yml --env-file ./development.env up --build
 
 postgresdown:
-	docker compose -f docker-compose.yml --env-file ./local.env down -v
+	docker compose -f docker-compose.yml --env-file ./development.env down -v
 
 new_migration:
 	migrate create -ext sql -dir db/migration -seq $(name)
 
 migrateup:
-	@export $$(cat local.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose up
+	@export $$(cat development.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose up
 
 migrateup1:
-	@export $$(cat local.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose up 1
+	@export $$(cat development.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose up 1
 
 migratedown:
-	@export $$(cat local.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose down
+	@export $$(cat development.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose down
 
 migratedown1:
-	@export $$(cat local.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose down 1
+	@export $$(cat development.env | xargs) && migrate -path db/migration -database "$${DB_SOURCE}" -verbose down 1
 
 sqlc:
 	sqlc generate
 
 test:
-	go test -v -cover -short ./...
+	APP_ENVIRONMENT=development go test -v -cover -short ./...
 
 server:
 	APP_ENVIRONMENT=development air
